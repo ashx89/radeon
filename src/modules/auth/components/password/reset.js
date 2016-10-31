@@ -7,7 +7,6 @@ import User from 'modules/auth/models/user';
 const application = config.locals.application;
 
 const mailOptions = {
-	from: `${application.name} 👥 <${application.email}>`,
 	subject: 'Your password has been updated'
 };
 

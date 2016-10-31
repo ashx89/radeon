@@ -6,7 +6,7 @@ const transporter = createTransport(application.passwordResetEmail);
 
 const defaultMailOptions = {
 	to: '',
-	from: `${application.name} 👥 <${application.email}>`,
+	from: `${application.name} <${application.email}>`,
 	subject: `Message from ${application.name}`
 };
 
