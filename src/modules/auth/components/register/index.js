@@ -1,7 +1,6 @@
 import async from 'async';
 import config from 'config';
 import User from 'modules/auth/models/user';
-import Account from 'modules/account/models/account';
 import { token, validation } from 'utils';
 
 const register = (req, res, next) => {
@@ -30,40 +29,19 @@ const register = (req, res, next) => {
 			});
 		},
 
-		function createAccount(callback) {
-			Account.findOne({ user: user._id }, (err, exists) => {
-				if (err) return callback(err);
-				if (exists) return callback(new Error('Account already exists'));
-
-				const account = new Account({ user: user._id });
-
-				account.save((err) => {
-					if (err) return callback(err);
-					return callback(null, account);
-				});
-			});
-		},
-
-		function saveAndReturnToken(account, callback) {
+		function saveAndReturnToken(callback) {
 			user.save((err) => {
 				if (err) return callback(err);
 
-				const tokenObject = user.toJSON();
-				tokenObject.account = account._id;
-
 				res.cookie('user',
-					token.create(
-						tokenObject,
-						req.app.locals.userCookieExpiry
-					), { httpOnly: true });
+					token.create(user.toJSON(), req.app.locals.userCookieExpiry), { httpOnly: true });
 
 				return callback(null);
 			});
 		}], (err) => {
-			console.log(err);
-		if (err) return next(err);
-		return res.status(200).json(user);
-	});
+			if (err) return next(err);
+			return res.status(200).json(user);
+		});
 };
 
 export default register;

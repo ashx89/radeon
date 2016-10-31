@@ -1,4 +1,10 @@
 const baseConfig = {
+	host: 'localhost',
+	apiHost: 'api.localhost',
+	port: 80,
+	secret: 'JvxTnZCf87VfblEdy6s0z5KEGKWqUggJW3pat8s5',
+	database: process.env.DATABASE || 'mongodb://localhost/radeon',
+
 	locals: {
 		application: {
 			name: 'Radeon',
@@ -9,13 +15,6 @@ const baseConfig = {
 			userCookieExpiry: 30000000000
 		}
 	},
-
-	host: 'localhost',
-	apiHost: 'api.localhost',
-	port: 80,
-	secret: 'JvxTnZCf87VfblEdy6s0z5KEGKWqUggJW3pat8s5',
-	
-	database: process.env.DATABASE || 'mongodb://localhost/radeon',
 
 	s3: {
 		bucket: 'radeon',

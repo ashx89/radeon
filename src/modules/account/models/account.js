@@ -1,9 +1,9 @@
-import geocoder from 'node-geocoder';
+import nodegeocoder from 'node-geocoder';
 import mongoose, { Schema } from 'mongoose';
 import paginate from 'mongoose-paginate';
 import validator from 'mongoose-validators';
 
-geocoder('google', 'https');
+const geocoder = nodegeocoder('google', 'https');
 
 const METERS_IN_MILES = 1609.34;
 
@@ -98,7 +98,7 @@ accountSchema.virtual('fulladdress').get(function onGetFullAddress() {
 	return true;
 });
 
-accountSchema.pre('save', function onModelSave(next) {
+accountSchema.pre('save', function (next) {
 	// Set delivery radius. (miles * meteres in miles). Geocoder uses meteres
 	// account.delivery.radius = parseInt(account.delivery.radius, 10) * METERS_IN_MILES;
 
@@ -106,7 +106,7 @@ accountSchema.pre('save', function onModelSave(next) {
 	// if (account.delivery.cost === 0) account.delivery.free_over = undefined;
 
 	if (this.fulladdress) {
-		geocoder.geocode(this.fulladdress, (err, res) => {
+		geocoder.geocode(this.fulladdress, function (err, res) {
 			if (err) return next(err);
 
 			if (!res.length) {

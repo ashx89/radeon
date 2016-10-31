@@ -7,7 +7,7 @@ export default function validation(type, req) {
 		errors = req.validationErrors()[0];
 		break;
 	case 'password':
-		req.checkBody('password', 'Password must be at least 8 characters').isLength(8, 20);
+		req.checkBody('password', 'Password must be at least 8 characters').isLength(8);
 		errors = req.validationErrors()[0];
 		break;
 	default:

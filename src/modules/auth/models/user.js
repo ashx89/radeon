@@ -33,7 +33,7 @@ const userSchema = new Schema({
 	password: {
 		type: String,
 		required: [true, 'Missing Password'],
-		validate: [validator.isLength({ message: 'Password must be at least 8 characters' }, 8, 20)]
+		validate: [validator.isLength({ message: 'Password must be at least 8 characters' }, 8)]
 	},
 	hash: String,
 	salt: String,
@@ -48,7 +48,7 @@ const userSchema = new Schema({
  * @param {string} enteredPassword
  * @param {function} callback
  */
-userSchema.methods.comparePassword = (enteredPassword, callback) => {
+userSchema.methods.comparePassword = function (enteredPassword, callback) {
 	bcrypt.compare(enteredPassword, this.password, (err, isMatch) => {
 		if (err) return callback(err);
 		return callback(null, isMatch);
@@ -58,12 +58,14 @@ userSchema.methods.comparePassword = (enteredPassword, callback) => {
 /**
  * User Data Model Virutals
  */
-userSchema.virtual('fullname').get(() => `${this.firstname} ${this.lastname}`);
+userSchema.virtual('fullname').get(function() {
+	return `${this.firstname} ${this.lastname}`;
+});
 
 /**
  * Run when a new model has been created
  */
-userSchema.pre('save', (next) => {
+userSchema.pre('save', function (next) {
 	const user = this;
 
 	if (!user.isModified('password')) return next();
