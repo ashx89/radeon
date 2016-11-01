@@ -5,11 +5,11 @@ const application = config.locals.application;
 const transporter = createTransport(application.passwordResetEmail);
 
 const defaultMailOptions = {
-	to: '',
 	from: `${application.name} <${application.email}>`,
 	subject: `Message from ${application.name}`
 };
 
-export default function sendMail(options = defaultMailOptions, callback) {
-	transporter.sendMail(options, (err) => callback(err));
+export default function sendMail(options, callback) {
+	const mailOptions = Object.assign(options, defaultMailOptions);
+	transporter.sendMail(mailOptions, (err) => callback(err));
 }

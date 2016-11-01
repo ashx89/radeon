@@ -1,6 +1,6 @@
 import async from 'async';
 import config from 'config';
-import { token, email } from 'utils';
+import { token, emailer } from 'utils';
 
 import User from 'modules/auth/models/user';
 
@@ -16,7 +16,7 @@ const mailOptions = {
  * @param {function} callback.
  */
 function queryUserToken(req, callback) {
-	const resetToken = req.query.token ? req.query.token : '';
+	const resetToken = req.query.token || req.body.token || '';
 	if (!resetToken) return callback(new Error('No reset token found'), null);
 
 	const query = {
@@ -69,7 +69,7 @@ export function passwordResetPost(req, res, next) {
 				'<h3>Password Changed Complete!</h3>\n\n
 				<p>Your password has been updated for account: <b>${user.email}</b>`;
 
-			email(mailOptions, (err) => callback(err, user));
+			emailer(mailOptions, (err) => callback(err, user));
 		}
 	], (err, user) => {
 		if (err) return next(err);

@@ -1,6 +1,6 @@
 import async from 'async';
 import config from 'config';
-import { validation } from 'utils';
+import { emailer, validation } from 'utils';
 import { randomBytes } from 'crypto';
 
 import User from 'modules/auth/models/user';
@@ -28,7 +28,7 @@ const forgot = (req, res, next) => {
 				if (!user) return next(new Error('Account does not exist'));
 
 				user.reset_password_token = token;
-				user.reset_password_expiry = Date.now() + 60000;
+				user.reset_password_expiry = Date.now() + 300000;
 
 				user.save((err) => callback(err, token, user));
 			});
@@ -43,9 +43,10 @@ const forgot = (req, res, next) => {
 					<a href="${link}">Reset Password</a>
 				</p>`;
 
-			email(mailOptions, (err) => callback(err, token));
+			emailer(mailOptions, (err) => callback(err, token));
 		}
 	], (err, token) => {
+		console.log(err);
 		if (err) return next(err);
 		return res.status(200).json(token);
 	});

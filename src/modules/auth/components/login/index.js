@@ -14,12 +14,7 @@ const login = (req, res, next) => {
 			if (err) return next(err);
 			if (!match) return next(new Error('Incorrect Password'));
 
-			res.cookie('user',
-				token.create(
-					doc.toJSON(),
-					req.app.locals.userCookieExpiry
-				), { httpOnly: true }
-			);
+			res.cookie('user', token.create(doc.toJSON(), req.app.locals.userCookieExpiry), { httpOnly: true });
 
 			if (!err && match) return res.status(200).json(doc);
 		});

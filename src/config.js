@@ -8,7 +8,7 @@ const baseConfig = {
 	locals: {
 		application: {
 			name: 'Radeon',
-			email: '',
+			email: 'kingsinbad0@gmail.com',
 			passwordResetEmail: '',
 			searchResultsLimit: 10,
 			searchLocationDistance: 500,
