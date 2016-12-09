@@ -4,7 +4,7 @@
   "description": "Bootstrap API server built using Node, Express, Mongoose and AWS",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src/index.js --exec babel-node",
+    "start": "sudo nodemon src/index.js --exec babel-node",
     "build": "babel src -d dist",
     "server": "node dist/index.js"
   },

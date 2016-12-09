@@ -2,10 +2,12 @@ import fs from 'fs';
 import http from 'http';
 import https from 'https';
 import mongoose from 'mongoose';
+import bluebird from 'bluebird';
 
 import config from '../config';
 
 export default function start(app) {
+	mongoose.Promise = bluebird;
 	mongoose.connect(config.database);
 
 	const httpsServer = https.createServer({

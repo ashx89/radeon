@@ -51,7 +51,5 @@ const developmentConfig = {};
 const productionConfig = {};
 
 export default Object.assign({}, baseConfig,
-	process.env.NODE_ENV === 'production'
-	? productionConfig
-	: developmentConfig
+	process.env.NODE_ENV === 'production' ? productionConfig : developmentConfig
 );

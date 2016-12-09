@@ -1,6 +1,3 @@
-import mongoose from 'mongoose';
-import bluebird from 'bluebird';
-
 import config from '../config';
 
 const sslOptions = {
@@ -11,7 +8,7 @@ const sslOptions = {
 };
 
 export default function settings(app) {
-	mongoose.Promise = bluebird;
+
 
 	app.set('json spaces', 2);
 	app.enable('trust proxy');
