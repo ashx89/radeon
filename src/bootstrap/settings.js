@@ -8,8 +8,6 @@ const sslOptions = {
 };
 
 export default function settings(app) {
-
-
 	app.set('json spaces', 2);
 	app.enable('trust proxy');
 	app.disable('x-powered-by');

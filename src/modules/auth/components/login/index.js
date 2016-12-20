@@ -10,7 +10,7 @@ const login = (req, res, next) => {
 		if (err) return next(err);
 		if (!doc) return next(new Error('Account does not exist'));
 
-		doc.comparePassword(password, (compareErr, match) => {
+		doc.comparePassword(password, (err, match) => {
 			if (err) return next(err);
 			if (!match) return next(new Error('Incorrect Password'));
 

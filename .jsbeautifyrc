@@ -18,7 +18,7 @@
 		"unescape_strings": false,
 		"wrap_line_length": 0,
 
-		"format_on_save": true,
+		"format_on_save": false,
 		"use_original_indentation": false
 	}
 }
